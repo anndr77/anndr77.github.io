@@ -1,94 +1,93 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <title>My Music PWA — Private Frontend</title>
-
-  <link rel="manifest" href="/manifest.json" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-  <meta name="theme-color" content="#0b84ff" />
-  <link rel="apple-touch-icon" href="/icons/icon-192.png">
-
-  <link rel="stylesheet" href="/css/styles.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Piped Lite Player</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui, sans-serif;
+      background: #0f0f10;
+      color: #f2f2f2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      font-size: 2rem;
+    }
+    .container {
+      width: 100%;
+      max-width: 900px;
+      background: #1a1a1d;
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 0 20px rgba(255,255,255,0.05);
+    }
+    input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: none;
+      background: #2a2a2d;
+      color: white;
+      margin-bottom: 15px;
+      font-size: 1rem;
+    }
+    button {
+      padding: 12px 20px;
+      background: #4f46e5;
+      border: none;
+      color: white;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: 0.2s;
+    }
+    button:hover {
+      background: #6d63ff;
+    }
+    #player {
+      width: 100%;
+      height: 400px;
+      background: black;
+      border-radius: 16px;
+      margin-top: 20px;
+    }
+  </style>
 </head>
 <body>
-  <div id="app" class="app">
-
-    <!-- header -->
-    <header class="topbar mobile-header">
-      <div class="left">
-        <button id="backBtn" class="icon-btn">◀</button>
-      </div>
-      <div class="center">
-        <input id="searchInput" type="search" placeholder="Search (Invidious / Piped)" />
-      </div>
-      <div class="right">
-        <button id="settingsBtn" class="icon-btn">⚙</button>
-      </div>
-    </header>
-
-    <!-- results / player -->
-    <main class="main">
-      <section class="player">
-        <div id="playerContainer" class="playerContainer">
-          <div id="videoMeta" class="videoMeta hidden">
-            <h3 id="videoTitle"></h3>
-            <p id="videoAuthor"></p>
-          </div>
-
-          <div class="videoWrapper" id="videoWrapper">
-            <!-- We'll load an iframe from the chosen instance -->
-            <iframe id="instanceFrame" src="" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          </div>
-        </div>
-      </section>
-
-      <aside class="sidebar results" id="results">
-        <ul id="resultsList"></ul>
-      </aside>
-    </main>
-
-    <!-- footer (mobile) -->
-    <footer class="footer mobile-footer">
-      <button id="playPauseBtn" class="footer-btn">Play</button>
-      <button id="actionsBtn" class="footer-btn">Actions</button>
-      <button id="playlistBtn" class="footer-btn">Playlist</button>
-    </footer>
-
-    <!-- Actions menu -->
-    <div id="actionsMenu" class="menu hidden">
-      <button id="saveLink">Save to Playlist</button>
-      <button id="openExternal">Open in External</button>
-      <button id="downloadHelp">Download (Help)</button>
-    </div>
-
-    <!-- Settings modal -->
-    <div id="settings" class="modal hidden">
-      <h3>Settings</h3>
-      <label>
-        Instance base URL:
-        <input id="instanceUrl" placeholder="https://yewtu.eu (example)" />
-      </label>
-      <label>
-        Layout:
-        <select id="layoutSelect">
-          <option value="iphone">iPhone (mobile)</option>
-          <option value="ipad">iPad</option>
-          <option value="mac">Mac</option>
-        </select>
-      </label>
-      <div style="margin-top:8px">
-        <button id="saveSettings">Save</button>
-        <button id="closeSettings">Close</button>
-      </div>
-      <p style="font-size:.85rem;color:#666;margin-top:10px">
-        Tip: pick a public Invidious or Piped instance from the public list. If an instance fails, change to another one.
-      </p>
-    </div>
-
-    <script type="module" src="/js/app.js"></script>
+  <h1>Piped Lite Player</h1>
+  <div class="container">
+    <input id="videoInput" placeholder="Paste YouTube URL here..." />
+    <button onclick="loadVideo()">Load Video</button>
+    <iframe id="player" allowfullscreen></iframe>
   </div>
+
+  <script>
+    function extractVideoId(url) {
+      const reg = /(?:v=|youtu.be\/)([A-Za-z0-9_-]{11})/;
+      const match = url.match(reg);
+      return match ? match[1] : null;
+    }
+
+    function loadVideo() {
+      const url = document.getElementById('videoInput').value.trim();
+      const id = extractVideoId(url);
+
+      if (!id) {
+        alert("Invalid YouTube link");
+        return;
+      }
+
+      const pipedInstance = "https://piped.video";
+      const embedUrl = `${pipedInstance}/embed/${id}`;
+
+      document.getElementById('player').src = embedUrl;
+    }
+  </script>
 </body>
 </html>
