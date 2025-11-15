@@ -2,72 +2,93 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>My Music PWA</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>My Music PWA — Private Frontend</title>
 
-  <!-- PWA meta -->
   <link rel="manifest" href="/manifest.json" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="theme-color" content="#0b84ff" />
-
-  <!-- Apple touch icon -->
   <link rel="apple-touch-icon" href="/icons/icon-192.png">
 
   <link rel="stylesheet" href="/css/styles.css" />
 </head>
 <body>
   <div id="app" class="app">
-    <header class="topbar">
-      <h1 class="title">My Music</h1>
-      <button id="actionsBtn" class="actions-btn">⋯</button>
+
+    <!-- header -->
+    <header class="topbar mobile-header">
+      <div class="left">
+        <button id="backBtn" class="icon-btn">◀</button>
+      </div>
+      <div class="center">
+        <input id="searchInput" type="search" placeholder="Search (Invidious / Piped)" />
+      </div>
+      <div class="right">
+        <button id="settingsBtn" class="icon-btn">⚙</button>
+      </div>
     </header>
 
+    <!-- results / player -->
     <main class="main">
-      <section class="video-area">
-        <!-- for demo using an embedded YouTube iframe (watch on YouTube) -->
-        <div class="video-wrapper" id="videoWrapper">
-          <iframe id="ytFrame" src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
-            title="Video" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
-            frameborder="0" allowfullscreen></iframe>
+      <section class="player">
+        <div id="playerContainer" class="playerContainer">
+          <div id="videoMeta" class="videoMeta hidden">
+            <h3 id="videoTitle"></h3>
+            <p id="videoAuthor"></p>
+          </div>
+
+          <div class="videoWrapper" id="videoWrapper">
+            <!-- We'll load an iframe from the chosen instance -->
+            <iframe id="instanceFrame" src="" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
         </div>
       </section>
 
-      <aside class="sidebar" id="sidebar">
-        <h2>Playlist</h2>
-        <ul id="playlist">
-          <li data-id="dQw4w9WgXcQ">Song 1 — Artist</li>
-          <!-- add items -->
-        </ul>
+      <aside class="sidebar results" id="results">
+        <ul id="resultsList"></ul>
       </aside>
     </main>
 
-    <footer class="footer">
-      <button id="settingsBtn">Settings</button>
+    <!-- footer (mobile) -->
+    <footer class="footer mobile-footer">
+      <button id="playPauseBtn" class="footer-btn">Play</button>
+      <button id="actionsBtn" class="footer-btn">Actions</button>
+      <button id="playlistBtn" class="footer-btn">Playlist</button>
     </footer>
 
-    <!-- Tiny actions menu -->
+    <!-- Actions menu -->
     <div id="actionsMenu" class="menu hidden">
-      <button id="openExternal">Open in Browser</button>
-      <button id="saveLink">Save Link</button>
-      <button id="downloadHelp">About Downloads</button>
+      <button id="saveLink">Save to Playlist</button>
+      <button id="openExternal">Open in External</button>
+      <button id="downloadHelp">Download (Help)</button>
     </div>
 
     <!-- Settings modal -->
     <div id="settings" class="modal hidden">
-      <h3>App Settings</h3>
-      <label>Layout:
+      <h3>Settings</h3>
+      <label>
+        Instance base URL:
+        <input id="instanceUrl" placeholder="https://yewtu.eu (example)" />
+      </label>
+      <label>
+        Layout:
         <select id="layoutSelect">
-          <option value="iphone">iPhone</option>
+          <option value="iphone">iPhone (mobile)</option>
           <option value="ipad">iPad</option>
           <option value="mac">Mac</option>
         </select>
       </label>
-      <button id="closeSettings">Close</button>
+      <div style="margin-top:8px">
+        <button id="saveSettings">Save</button>
+        <button id="closeSettings">Close</button>
+      </div>
+      <p style="font-size:.85rem;color:#666;margin-top:10px">
+        Tip: pick a public Invidious or Piped instance from the public list. If an instance fails, change to another one.
+      </p>
     </div>
 
+    <script type="module" src="/js/app.js"></script>
   </div>
-
-  <script type="module" src="/js/app.js"></script>
 </body>
 </html>
