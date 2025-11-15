@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>My Music PWA</title>
+
+  <!-- PWA meta -->
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="theme-color" content="#0b84ff" />
+
+  <!-- Apple touch icon -->
+  <link rel="apple-touch-icon" href="/icons/icon-192.png">
+
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <div id="app" class="app">
+    <header class="topbar">
+      <h1 class="title">My Music</h1>
+      <button id="actionsBtn" class="actions-btn">⋯</button>
+    </header>
+
+    <main class="main">
+      <section class="video-area">
+        <!-- for demo using an embedded YouTube iframe (watch on YouTube) -->
+        <div class="video-wrapper" id="videoWrapper">
+          <iframe id="ytFrame" src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+            title="Video" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+            frameborder="0" allowfullscreen></iframe>
+        </div>
+      </section>
+
+      <aside class="sidebar" id="sidebar">
+        <h2>Playlist</h2>
+        <ul id="playlist">
+          <li data-id="dQw4w9WgXcQ">Song 1 — Artist</li>
+          <!-- add items -->
+        </ul>
+      </aside>
+    </main>
+
+    <footer class="footer">
+      <button id="settingsBtn">Settings</button>
+    </footer>
+
+    <!-- Tiny actions menu -->
+    <div id="actionsMenu" class="menu hidden">
+      <button id="openExternal">Open in Browser</button>
+      <button id="saveLink">Save Link</button>
+      <button id="downloadHelp">About Downloads</button>
+    </div>
+
+    <!-- Settings modal -->
+    <div id="settings" class="modal hidden">
+      <h3>App Settings</h3>
+      <label>Layout:
+        <select id="layoutSelect">
+          <option value="iphone">iPhone</option>
+          <option value="ipad">iPad</option>
+          <option value="mac">Mac</option>
+        </select>
+      </label>
+      <button id="closeSettings">Close</button>
+    </div>
+
+  </div>
+
+  <script type="module" src="/js/app.js"></script>
+</body>
+</html>
