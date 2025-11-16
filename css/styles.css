@@ -1,63 +1,92 @@
-:root{
-  --bg: #ffffff;
-  --card: #fbfdff;
-  --accent: #0b84ff;
-  --muted: #70757a;
-  --glass: rgba(8,12,20,0.03);
-  --radius: 12px;
-  --shadow: 0 8px 30px rgba(2,6,23,0.06);
-}
-*{box-sizing:border-box}
-html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto;color:#0b1120;background:var(--bg)}
-.app{display:flex;flex-direction:column;height:100vh;}
-
-/* header */
-.topbar{display:flex;align-items:center;gap:8px;padding:10px;border-bottom:1px solid #efefef;background:linear-gradient(180deg,#fff, #fbfdff)}
-.icon-btn{background:none;border:0;font-size:18px;padding:6px;border-radius:8px;cursor:pointer}
-
-/* search center */
-.topbar input[type="search"]{width:100%;padding:9px 12px;border-radius:999px;border:1px solid #e6e9ee;box-shadow:none}
-
-/* main area */
-.main{flex:1;display:flex;min-height:0}
-.player{flex:1;padding:12px;display:flex;flex-direction:column;gap:10px}
-.sidebar{width:360px;border-left:1px solid #f2f4f7;padding:10px;overflow:auto;background:var(--card)}
-.sectionHeader{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
-.resultsList, .playlistList{list-style:none;padding:0;margin:0}
-.resultsList li{display:flex;gap:10px;padding:8px;border-radius:10px;cursor:pointer;align-items:center}
-.resultsList li:hover{background:var(--glass)}
-.resultsList img.thumbSmall{width:80px;height:45px;object-fit:cover;border-radius:6px}
-
-/* video area */
-.videoMeta{display:flex;gap:12px;align-items:center}
-.videoMeta .thumb{width:120px;height:68px;object-fit:cover;border-radius:8px}
-.videoWrapper{flex:1;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#f9fbff,#fff);border-radius:12px;box-shadow:var(--shadow);overflow:hidden}
-video#player{width:100%;height:100%;max-height:620px;background:black;outline:none}
-#iframeWrapper{width:100%;height:100%}
-#iframeWrapper iframe{width:100%;height:100%;border:0}
-
-/* player controls */
-.playerControls{display:flex;gap:8px}
-.btn{padding:8px 12px;border-radius:10px;border:1px solid #e6e9ee;background:white;cursor:pointer}
-.mini{font-size:.8rem;padding:6px 8px;border-radius:8px}
-
-/* footer */
-.footer{display:flex;gap:8px;padding:8px;border-top:1px solid #efefef;background:linear-gradient(180deg,#fff,#fbfdff);justify-content:space-around}
-.footer-btn{padding:8px 12px;border-radius:8px;border:1px solid #e6e9ee;background:white;cursor:pointer}
-
-/* responsive */
-@media (max-width:900px){
-  .sidebar{width:100%;border-left:none;border-top:1px solid #f2f4f7}
-  .main{flex-direction:column}
-  .videoMeta .thumb{display:none}
-  .resultsList img.thumbSmall{display:none}
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: var(--bg, #ffffff);
+  color: var(--text, #0b0f14);
 }
 
-/* layout mode classes */
-body.layout-iphone .videoWrapper video{height:220px}
-body.layout-ipad .videoWrapper video{height:420px}
-body.layout-mac .videoWrapper video{height:640px}
+body.dark {
+  --bg: #0b0f14;
+  --text: #e7eef8;
+  --card: #111a25;
+  --accent: #3aa0ff;
+}
 
-/* hidden modal / menu */
-.hidden{display:none}
-.modal{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);background:#fff;border-radius:10px;box-shadow:var(--shadow);padding:14px;z-index:60;width:94%;max-width:520px}
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: #0b84ff;
+  color: white;
+  font-size: 1.2rem;
+  align-items: center;
+}
+
+.container {
+  padding: 16px;
+}
+
+.searchBox {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.results {
+  display: grid;
+  gap: 12px;
+}
+
+.videoItem {
+  background: var(--card, #f6f8fa);
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.videoItem img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.player {
+  margin-top: 20px;
+}
+
+video {
+  width: 100%;
+  border-radius: 10px;
+  background: black;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.btn {
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: none;
+  background: #0b84ff;
+  color: white;
+  cursor: pointer;
+}
+
+.icon {
+  background: transparent;
+  border: none;
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+
+.settings {
+  background: var(--card, #eef2f7);
+  padding: 16px;
+}
+
+.hidden {
+  display: none;
+}
