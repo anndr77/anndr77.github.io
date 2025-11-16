@@ -1,111 +1,66 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <title>Video Lite — Personal Piped Frontend</title>
-
-  <link rel="manifest" href="./manifest.json" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta charset="UTF-8" />
   <meta name="theme-color" content="#0b84ff" />
-  <link rel="apple-touch-icon" href="./icons/icon-192.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Video Lite Web</title>
 
-  <link rel="stylesheet" href="./css/styles.css" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="manifest" href="manifest.json" />
 </head>
 <body>
-  <div id="app" class="app">
 
-    <!-- Header (mobile/iPhone style) -->
-    <header class="topbar mobile-header">
-      <div class="left">
-        <button id="backBtn" class="icon-btn" title="Back">◀</button>
-      </div>
-      <div class="center">
-        <input id="searchInput" type="search" placeholder="Search (Piped)" />
-      </div>
-      <div class="right">
-        <button id="settingsBtn" class="icon-btn" title="Settings">⚙</button>
-      </div>
-    </header>
+  <header class="topbar">
+    <h1>Video Lite Web</h1>
+    <button id="settingsBtn" class="icon">⚙️</button>
+  </header>
 
-    <!-- Main: results + player -->
-    <main class="main">
-      <section class="player" id="playerSection">
-        <div class="videoMeta hidden" id="videoMeta">
-          <img id="videoThumb" class="thumb" alt="" />
-          <div class="metaText">
-            <h3 id="videoTitle"></h3>
-            <p id="videoAuthor"></p>
-          </div>
-        </div>
+  <div id="settingsPanel" class="settings hidden">
+    <h2>Settings</h2>
 
-        <div class="videoWrapper" id="videoWrapper">
-          <!-- Primary playback element; we'll dynamically set src -->
-          <video id="player" controls playsinline></video>
-          <!-- Fallback iframe: opens instance watch page if direct stream blocked -->
-          <div id="iframeWrapper" class="hidden">
-            <iframe id="instanceFrame" src="" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          </div>
-        </div>
+    <label>
+      Piped Instance:
+      <input id="instanceInput" type="text" value="https://piped.video">
+    </label>
 
-        <div class="playerControls">
-          <button id="saveBtn" class="btn">Save</button>
-          <button id="addToPlaylistBtn" class="btn">Add to Playlist</button>
-          <button id="downloadHelpBtn" class="btn">Download (Help)</button>
-        </div>
-      </section>
+    <button id="saveSettings" class="btn">Save</button>
+  </div>
 
-      <aside class="sidebar results" id="resultsSection">
-        <div class="sectionHeader">
-          <strong>Results</strong>
-          <small id="resultsInfo"></small>
-        </div>
-        <ul id="resultsList" class="resultsList"></ul>
+  <main class="container">
 
-        <div class="sectionHeader">
-          <strong>Playlist</strong>
-          <button id="clearPlaylist" class="mini">Clear</button>
-        </div>
-        <ul id="playlistList" class="playlistList"></ul>
-      </aside>
-    </main>
-
-    <!-- Footer (mobile) -->
-    <footer class="footer mobile-footer">
-      <button id="prevBtn" class="footer-btn">Prev</button>
-      <button id="playPauseBtn" class="footer-btn">Play</button>
-      <button id="nextBtn" class="footer-btn">Next</button>
-      <button id="openExternalBtn" class="footer-btn">Open</button>
-    </footer>
-
-    <!-- Settings modal -->
-    <div id="settings" class="modal hidden">
-      <h3>Settings</h3>
-      <label>
-        Default instance base URL:
-        <input id="instanceUrl" placeholder="https://piped.video" />
-      </label>
-      <label>
-        Layout:
-        <select id="layoutSelect">
-          <option value="iphone">iPhone</option>
-          <option value="ipad">iPad</option>
-          <option value="mac">Mac</option>
-        </select>
-      </label>
-
-      <div style="margin-top:12px; display:flex; gap:8px;">
-        <button id="saveSettings">Save</button>
-        <button id="closeSettings">Close</button>
-      </div>
-
-      <p style="font-size:.85rem;color:#666;margin-top:8px">
-        If playback fails on some videos, try switching to another public Piped instance in this field. Some instances or videos can be blocked by CORS.  [oai_citation:2‡GitHub](https://github.com/TeamPiped/Piped/issues/3211?utm_source=chatgpt.com)
-      </p>
+    <!-- Search -->
+    <div class="searchBox">
+      <input id="searchInput" type="text" placeholder="Search videos…" />
+      <button id="searchBtn" class="btn">Search</button>
     </div>
 
-    <script type="module" src="./js/app.js"></script>
-  </div>
+    <!-- Results -->
+    <div id="results" class="results"></div>
+
+    <!-- Player -->
+    <section id="playerSection" class="player hidden">
+      <video id="player" playsinline controls></video>
+
+      <div class="controls">
+        <button id="playPauseBtn" class="btn">Play</button>
+        <button id="pipBtn" class="btn">PiP</button>
+        <button id="darkToggle" class="btn">Dark</button>
+
+        <select id="sleepSelect">
+          <option value="0">Sleep Off</option>
+          <option value="5">5 min</option>
+          <option value="15">15 min</option>
+          <option value="30">30 min</option>
+        </select>
+
+        <button id="openExternal" class="btn">Open in Piped</button>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="js/ui.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>
